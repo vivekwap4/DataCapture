@@ -1,0 +1,57 @@
+/ Page Content
+.container.shadow-none.p-3.mb-5.bg-light.rounded{:style => "margin-top: 25px"}
+  %div.pageheight
+    .row
+      %br/
+      %br/
+      %br/
+      / Blog Entries Column
+      .col-md-12
+        .row
+          .col-md-2
+            #sidebar-wrapper
+              %ul.nav.flex-column{:style => "margin-top: 50px"}
+                %li.nav-item
+                  %a.nav-link{:href => "/dataentry/dataentry_landing_page"} My Projects
+                %li.nav-item
+                  %a.nav-link{:href => "/profile"} Profile
+                %li.nav-item
+                  %a.nav-link{:href => "/dataentry/update"} Update Request
+          .col-md-10
+            .shadow-none.p-3.mb-5.bg-light.rounded{:style => "margin-top: 25px"}
+              %h4.my-4
+                Enter Data for :
+                = @form.form_name
+              %br/
+              .col-md-6
+                %form#postform{:action => "/dataentry/adddata", :method => "POST"}
+                  = tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token)
+                  %input#inputFormAttributeID.form-control{:name => 'formId', :type => "hidden", :value => @form.id}/
+                  - @formAttributes.each do |formAttr|
+                    - if formAttr.column_type == 'Categorical'
+                      .form-group
+                        #{formAttr.column_name}
+                        %select{:name => formAttr.id, :required => true}
+                          %option{:value => ''} Select
+                          - @categoricalAttr[formAttr.column_name].each do |category|
+                            %option{:value => category.option} #{category.option}
+                    - elsif formAttr.column_type == 'String'
+                      .form-group
+                        %input#inputString.form-control{:name => formAttr.id, :placeholder => formAttr.column_name, :type => 'text', :maxlength => @stringAttr[formAttr.column_name], :required => true}/
+                      %br/
+                    - elsif formAttr.column_type == 'Integer'
+                      .form-group
+                        %input#inputInteger.form-control{:name => formAttr.id, :placeholder => formAttr.column_name, :type => 'number', :min => @integerAttr[formAttr.column_name][0], :max => @integerAttr[formAttr.column_name][1], :required => true}/
+                      %br/
+                    - else
+                      .form-group
+                        %input#inputDate.form-control{:name => formAttr.id, :placeholder => formAttr.column_name, :type => 'date', :min => @dateAttr[formAttr.column_name][0], :max => @dateAttr[formAttr.column_name][1], :required => true}/
+                      %br/
+                  %button.btn.btn-primary{:type => "submit", :value => "Add Data"} Add Data
+  / /.row
+/ /.container
+/ Footer
+%footer.py-5.bg-dark
+  .container
+    %p.m-0.text-center.text-white Copyright © Data Capture 2018
+  / /.container

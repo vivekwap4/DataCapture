@@ -1,0 +1,88 @@
+/ Page Content
+.container.shadow-none.p-3.mb-5.bg-light.rounded{:style => "margin-top: 25px"}
+  %div.pageheight
+    .row
+      %br/
+      %br/
+      %br/
+      .col-md-12
+        - if flash[:notice]
+          %br/
+          %br/
+          %br/
+          .alert.alert-success{:role => "alert"}
+            =flash[:notice]
+        .row
+          .col-md-2
+            #sidebar-wrapper
+              %ul.nav.flex-column{:style => "margin-top: 50px"}
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/researcher_landing_page", :id => 'my_projects_link'} My Projects
+                %li.nav-item
+                  %a.nav-link{:href => "/profile", :id => 'profile_link'} Profile
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/grantaccess", :id => 'grant_access_link'} Grant Access
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/approvedata", :id => 'approve_data_link'} Approve Data
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/archive", :id => 'archive_link'} Archive
+          .col-md-10
+            %br/
+            %h4.my-4
+              Researcher Landing Page
+            %h3.my-4
+            = link_to '+ Create a New Project', new_project_path, :id => 'create_project'
+            %br/
+            %br/
+            %h4 Projects
+            %table#projects
+              %thead
+                %tr
+                  %th Project Name
+                  %th Project ID
+                  %th Number of Forms
+                  %th Recent Activity
+              %tbody
+                - @projects.each do |project|
+                  %tr
+                    %td= link_to "#{project.project_name}", project_path(project)
+                    %td= project.id
+                    %td= Form.all.where(projects_id: project.id).count
+                    %td= project.updated_at
+            %h4.my-4
+              Project Creation Timeline
+            - if session[:session_token] and (session[:usertype] == 'researcher')
+              - researcher = Researcher.find_by_authentications_id(@id)
+              - id = researcher.id
+            = line_chart Project.all.where(researchers_id: id).group_by_day(:created_at).count
+            %br/
+  / /.row
+/ /.container
+/ Footer
+%footer.py-5.bg-dark
+  .container
+    %p.m-0.text-center.text-white Copyright © Data Capture 2018
+  / /.container
+
+
+-##dataApprovalModal.modal
+-#  .modal-dialog
+-#    .modal-content
+-#      / Modal Header
+-#      .modal-header
+-#        %h4.modal-title Approve Data
+-#        %button.close{"data-dismiss" => "modal", :type => "button"} ×
+-#      / Modal body
+-#      .modal-body
+-#        %h4.my-4{:style => "margin-top: 25px"}
+-#          Select Project
+-#        #approvedataform
+-#          %div#addnewform
+-#            %select#approvedataprojectselector{:name => "project"}
+-#              %option{:value => nil } Select Project
+-#              - @project.each do |proj|                           #Researcher's project
+-#                %option{:value => proj.id} #{proj.project_name}
+-#
+-#      / Modal footer
+-#      .modal-footer
+-#        %button.btn.btn-danger{"data-dismiss" => "modal", :type => "button"} Close

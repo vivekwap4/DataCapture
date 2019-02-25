@@ -1,0 +1,83 @@
+/ Page Content
+.container
+  .row
+    %br/
+    %br/
+    %br/
+    / Blog Entries Column
+    .col-md-12
+      .shadow-none.p-3.mb-5.bg-light.rounded{:style => "margin-top: 25px"}
+        %br/
+        %h1.my-4
+          Tutorial Page
+        .row
+          %h4
+            Researcher
+        .row
+          %p
+            %ul
+              %li
+                Creates new projects
+              %li
+                Creates new data entry forms for projects
+              %li
+                Accesses entered data for their projects
+              %li
+                Can download entered data for their projects
+              %li
+                Should login using a username and password
+        %br/
+        .row
+          %h4
+            Data Entry Person
+        .row
+          %p
+            %ul
+              %li
+                Enters data for a project using a form
+              %li
+                Not necessarily part of the research group (this is why there are separate logins)
+              %li
+                Should login using a username, password, and project ID (which would be given to them by the researcher) so they are presented with the correct project's form for entering data
+              %li
+                If a project has multiple data entry forms, data entry people should login in using a form ID as well as password and project ID (form ID would also be provided by researchers)
+              %li
+                Upon login, they will be presented with the data entry form specified by their project ID (or project ID and form ID) so they can enter standardized data
+        %br/
+        .row
+          %h4
+            Projects
+        .row
+          %p
+            %ul
+              %li
+                Created and "owned" by researchers
+              %li
+                Can have 1+ data entry forms associated with them
+              %li
+                Need a name upon creation (REDcap also has users select a "project type", but that is more advanced)
+        %br/
+        .row
+          %h4
+            Forms
+        .row
+          %p
+            %ul
+              %li
+                REDcap calls them "data collection instruments" (this video shows how everything works in REDcap: https://www.youtube.com/watch?v=SWYXdFiPfus)
+              %li
+                Many forms can be associated with individual projects
+              %li
+                Forms are created by the researcher and presented to data entry people
+              %li
+                Form creation should be dynamic, i.e. researcher chooses what fields to add, what kinds of fields they are, what they're called, etc. (great video here: https://www.youtube.com/watch?v=t_FNKR7jahM)
+              %li
+                Keep fields simple for now - can expand later
+        %br/
+  / /.row
+/ /.container
+/ Footer
+%footer.py-5.bg-dark
+  .container
+    %p.m-0.text-center.text-white Copyright © SELT Project 2018
+  / /.container

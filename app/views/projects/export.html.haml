@@ -1,0 +1,36 @@
+/ Page Content
+.container
+  %div.pageheight
+    .row
+      %br/
+      %br/
+      %br/
+      / Blog Entries Column
+      .col-md-12
+        - if flash[:notice]
+          %br/
+          %br/
+          %br/
+          .alert.alert-success{:role => "alert"}
+            =flash[:notice]
+        .shadow-none.p-3.mb-5.bg-light.rounded{:style => "margin-top: 25px"}
+          %br/
+          .row
+            .col-md-10
+              .shadow-none.p-3.mb-5.bg-light.rounded{:style => "margin-top: 25px"}
+                %br/
+                %h4.my-4
+                  Select Project
+                #createnewform
+                  %form#addnewform{:action => "/formaccess/updateaccess", :method => "POST"}
+                    %select#projectselectoraccess{:name => "project"}
+                      %option{:value => nil } Select Project
+                      - @project.each do |proj|
+                        %option{:value => proj.id} #{proj.project_name}
+  / /.row
+/ /.container
+/ Footer
+%footer.py-5.bg-dark
+  .container
+    %p.m-0.text-center.text-white Copyright © Data Capture 2018
+  / /.container

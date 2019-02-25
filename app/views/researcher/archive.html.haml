@@ -1,0 +1,55 @@
+/ Page Content
+.container.shadow-none.p-3.mb-5.bg-light.rounded{:style => "margin-top: 25px"}
+  %div.pageheight
+    .row
+      %br/
+      %br/
+      %br/
+      .col-md-12
+        - if flash[:notice]
+          %br/
+          %br/
+          %br/
+          .alert.alert-success{:role => "alert"}
+            =flash[:notice]
+        .row
+          .col-md-2
+            #sidebar-wrapper
+              %ul.nav.flex-column{:style => "margin-top: 50px"}
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/researcher_landing_page"} My Projects
+                %li.nav-item
+                  %a.nav-link{:href => "/profile"} Profile
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/grantaccess"} Grant Access
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/approvedata"} Approve Data
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/archive"} Archive
+          .col-md-10
+            %br/
+            %h4.my-4
+              Archived Forms
+            %table#projects
+              %thead
+                %tr
+                  %th Project ID
+                  %th Form Name
+                  %th View Data
+              %tbody
+                - @archive.each do |form|
+                  %tr
+                    %td
+                      %a{:href => "#"} #{form.projects_id}
+                    %td= form.form_name
+                    %td
+                      %a{:href => "/archiveforms/#{form.id}"} View Data
+/ /.row
+/ /.container
+/ Footer
+%footer.py-5.bg-dark
+  .container
+    %p.m-0.text-center.text-white Copyright © Data Capture 2018
+  / /.container
+
+

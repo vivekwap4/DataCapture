@@ -1,0 +1,49 @@
+/ Page Content
+.container.pageheight.shadow-none.p-3.mb-5.bg-light.rounded{:style => "margin-top: 25px"}
+  .row
+    %br/
+    %br/
+    %br/
+    / Blog Entries Column
+    .col-md-12
+      - if flash[:notice]
+        %br/
+        %br/
+        %br/
+        .alert.alert-success{:role => "alert"}
+          =flash[:notice]
+      .row
+        .col-md-2
+          #sidebar-wrapper
+            %ul.nav.flex-column{:style => "margin-top: 50px"}
+              %li.nav-item
+                %a.nav-link{:href => "/researcher/researcher_landing_page"} My Projects
+              %li.nav-item
+                %a.nav-link{:href => "/profile"} Profile
+              %li.nav-item
+                %a.nav-link{:href => "/researcher/grantaccess"} Grant Access
+              %li.nav-item
+                %a.nav-link{:href => "/researcher/approvedata"} Approve Data
+              %li.nav-item
+                %a.nav-link{:href => "/researcher/archive"} Archive
+        .col-md-10
+          .shadow-none.p-3.mb-5.bg-light.rounded{:style => "margin-top: 25px"}
+            %h4.my-4
+              Create Project
+            %br/
+            .col-md-6
+              %form#postform{:action => "/projects", :method => "POST", :id => 'submitform'}
+                = tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token)
+                .form-group
+                  %input#inputName.form-control{:name => "project_name", :placeholder => "Project Name", :type => "text"}/
+                .form-group
+                  %input#inputResearchGroup.form-control{:name => "research_group", :placeholder => "Research Group", :type => "text"}/
+                %br/
+                %button.btn.btn-primary{:type => "create_project", :value => "Create Project", :id => 'create_project_submit'} Create Project
+  / /.row
+/ /.container
+/ Footer
+%footer.py-5.bg-dark
+  .container
+    %p.m-0.text-center.text-white Copyright © Data Capture 2018
+  / /.container

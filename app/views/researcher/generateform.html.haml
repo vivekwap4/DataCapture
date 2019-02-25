@@ -1,0 +1,75 @@
+/ Page Content
+.container.shadow-none.p-3.mb-5.bg-light.rounded{:style => "margin-top: 25px"}
+  %div.pageheight
+    .row
+      %br/
+      %br/
+      %br/
+      / Blog Entries Column
+      .col-md-2
+        #sidebar-wrapper
+          %ul.nav.flex-column{:style => "margin-top: 50px"}
+            %li.nav-item
+              %a.nav-link{:href => "/researcher/researcher_landing_page"} My Projects
+            %li.nav-item
+              %a.nav-link{:href => "/profile"} Profile
+            %li.nav-item
+              %a.nav-link{:href => "/researcher/grantaccess"} Grant Access
+            %li.nav-item
+              %a.nav-link{:href => "/researcher/approvedata"} Approve Data
+            %li.nav-item
+              %a.nav-link{:href => "/researcher/archive"} Archive
+      .col-md-10
+        %br/
+        %h4.my-4
+          Select Project
+        #createnewform
+          %form#addnewform{:action => "/researcher/createform", :method => "POST"}
+            %select#projectselector{:name => "project"}
+              %option{:value => nil } Select Project
+              - @project.each do |proj|
+                %option{:value => proj.id} #{proj.project_name}
+            #remainingform
+              %br
+              %input#formname.form-control{:name => "formname", :placeholder => "Enter Form Name", :type => "text"}/
+              %h4.my-4
+                Add Form Columns
+              = tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token)
+              .element-wrapper
+                .rowtocreateform#field1
+                  .row
+                    .col-md-6
+                      .form-group
+                        %input#formfield1.form-control{:name => "formfield1", :placeholder => "Form Field", :type => "text"}/
+                    .col-md-2
+                      .form-group
+                        %select#field1type.form-control{:name => "formfield1type", :onchange => 'checkcategorical(this.id)'}
+                          %option String
+                          %option Integer
+                          %option Date
+                          %option Categorical
+                    .col-md-2
+                      .form-group
+                        %input.btn.btn-danger.form-button{:id => "field1" ,:onclick => "javascript: deleteColumn(this.id);", :type => "hidden", :value => "Delete Column", :required => true }/
+                  .attributecategory#field1category
+                    %pre#categoryfield1
+                      Length
+                      %input{:name => "formfield1typelength", :type => "number", :min => "0", :max => "10", :required => true }/
+              %br/
+              %br/
+              %br/
+              .row
+                .col-md-4
+                  %button.btn.btn-primary#submitformbutton{:type => "submit", :value => "Submit"}
+                    Create Form
+          .row
+            .col-md-4
+              %button.btn.btn-secondary.btn-add-row#addfieldbutton
+                Add More Fields
+  / /.row
+/ /.container
+/ Footer
+%footer.py-5.bg-dark
+  .container
+    %p.m-0.text-center.text-white Copyright © Data Capture 2018
+  / /.container

@@ -1,0 +1,46 @@
+/ Page Content
+.container
+  %div.pageheight
+    .row
+      %br/
+      %br/
+      %br/
+      / Blog Entries Column
+      .col-md-12
+        .shadow-none.p-3.mb-5.bg-light.rounded{:style => "margin-top: 10px"}
+          - if flash[:notice] and flash[:success] == 0
+            .alert.alert-danger{:role => "alert"}
+              =flash[:notice]
+          - if flash[:notice] and flash[:success] == 1
+            .alert.alert-success{:role => "alert"}
+              =flash[:notice]
+          %br/
+          %br/
+          %br/
+          %h2.my-2
+            SignUp
+          %br/
+          .col-md-6
+            %form#postform{:action => "/researcher/signup/", :method => "POST"}
+              = tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token)
+              .form-group
+                %input#inputFirstName.form-control{:name => "firstname", :placeholder => "First Name", :type => "text"}/
+              .form-group
+                %input#inputLastName.form-control{:name => "lastname", :placeholder => "Last Name", :type => "text"}/
+              .form-group
+                %input#inputEmail.form-control{:name => "email", :placeholder => "Email", :type => "email"}/
+              .form-group
+                %input#inputResearchGroup.form-control{:name => "researchgroup", :placeholder => "Research Group", :type => "text"}/
+              .form-group
+                %input#inputPassword.form-control{:name => "password", :placeholder => "Password", :type => "password"}/
+              .form-group
+                %input#confirminputPassword.form-control{:name => "confirmpassword", :placeholder => "Confirm Password", :type => "password"}/
+              %br/
+              %button.btn.btn-primary{:type => "submit", :value => "Submit"} SignUp
+  / /.row
+/ /.container
+/ Footer
+%footer.py-5.bg-dark
+  .container
+    %p.m-0.text-center.text-white Copyright © Data Capture 2018
+  / /.container

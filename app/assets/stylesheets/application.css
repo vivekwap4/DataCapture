@@ -1,0 +1,104 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+
+
+.sticktobottom{
+  position: absolute !important;
+  bottom: 0 !important;
+  width: 100%;
+  color: #000000;
+}
+table#projects {
+  margin: 10px;
+  border-collapse: collapse;
+  width: 100%;
+  border-bottom: 2px solid black;
+}
+table#projects th{
+  border: 2px solid white;
+  font-weight: bold;
+  background-color: lavender;
+  text-align: center;
+}
+table#projects td{
+  border-bottom: 1px solid black;
+}
+table#forms {
+  margin: 10px;
+  border-collapse: collapse;
+  width: 100%;
+  border-bottom: 2px solid black;
+}
+table#forms th{
+  border: 2px solid white;
+  font-weight: bold;
+  background-color: lavender;
+  text-align: center;
+}
+table#forms td{
+  border-bottom: 1px solid black;
+}
+table#tasks{
+  margin: 10px;
+  width: 20%;
+  border-bottom: 2px solid black;
+}
+table#tasks td{
+  border-bottom: 1px solid black;
+  text-align: center;
+}
+table#tasks th{
+  font-weight: bold;
+  background-color: lavender;
+  border: 2px solid white;
+  text-align: center;
+}
+img {
+  display: block;
+  margin: 0 auto;
+}
+
+#addfieldbutton{
+  position: element(#submitformbutton);
+  transform: translateY(-100px);
+}
+
+.pageheight{
+  min-height: 86vh;
+}
+
+
+
+table.forms {
+  margin: 10px;
+  border-collapse: collapse;
+  width: 100%;
+  border-bottom: 2px solid black;
+}
+table.forms th{
+  border: 2px solid white;
+  font-weight: bold;
+  background-color: lavender;
+  text-align: center;
+}
+table.forms td{
+  border-bottom: 1px solid black;
+}
+
+#searchform{
+  float : right;
+}

@@ -1,0 +1,80 @@
+/ Page Content
+.container.shadow-none.p-3.mb-5.bg-light.rounded{:style => "margin-top: 25px"}
+  %div.pageheight
+    .row
+      %br/
+      %br/
+      %br/
+      / Blog Entries Column
+      .col-md-12
+        - if flash[:notice]
+          %br/
+          %br/
+          %br/
+          .alert.alert-success{:role => "alert"}
+            =flash[:notice]
+        .row
+          .col-md-2
+            #sidebar-wrapper
+              %ul.nav.flex-column{:style => "margin-top: 50px"}
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/researcher_landing_page"} My Projects
+                %li.nav-item
+                  %a.nav-link{:href => "/profile"} Profile
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/grantaccess"} Grant Access
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/approvedata"} Approve Data
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/archive"} Archive
+          .col-md-10
+            %br/
+            %h4.my-4
+              - if @form
+                #{@form.form_name} Data : Archived
+              %br/
+              %h3.my-4
+              %table#forms
+                %thead
+                  %tr
+                    %th{:colspan => 2} Form Details
+                %tbody
+                  %tr
+                    %td
+                      %b Name
+                    %td #{@form.form_name}
+                  %tr
+                    %td
+                      %b Project Name
+                    %td Belongs to #{@project.project_name}
+                  %tr
+                    %td
+                      %b Updated at
+                    %td #{@form.updated_at}
+                  %tr
+                    %td
+                      %b Created At
+                    %td #{@form.created_at}
+              %br/
+              %table#forms
+                %thead
+                  %tr
+                    %th{:colspan => @length} Forms
+                %thead
+                  %tr
+                    - @attribues.each do |attr|
+                      %th= attr.column_name
+                    %th FormID
+                %tbody
+                  - @results.each do |result|
+                    %tr
+                      - @attribues.each do |attr|
+                        %td= result.jsondata[attr.column_name]
+                      %td= result.jsondata['formID']
+  / /.row
+/ /.container
+/ Footer
+%footer.py-5.bg-dark
+  .container
+    %p.m-0.text-center.text-white Copyright © Data Capture 2018
+  / /.container

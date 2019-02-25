@@ -1,0 +1,48 @@
+/ Page Content
+.container
+  .row
+    %br/
+    %br/
+    %br/
+    / Blog Entries Column
+    .col-md-12
+      .shadow-none.p-3.mb-5.bg-light.rounded{:style => "margin-top: 25px"}
+        %br/
+        %h1.my-4
+          SignUp
+        %br/
+        .col-md-6
+          %form#postform{:action => "/dataentry/signup/", :method => "POST"}
+            = tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token)
+            .form-group
+              %input#inputFirstName.form-control{:name => "firstname", :placeholder => "First Name", :type => "text", :length => '20'}/
+            .form-group
+              %input#inputLastName.form-control{:name => "lastname", :placeholder => "Last Name", :type => "text", :length => '20'}/
+            .form-group
+              %input#inputEmail.form-control{:name => "email", :placeholder => "Email", :type => "email"}/
+            .form-group
+              %input#inputProfile.form-control{:name => "profile", :placeholder => "Profile", :type => "text", :length => '20'}/
+            .form-group
+              %input#inputInstitution.form-control{:name => "institution", :placeholder => "Institution", :type => "text", :length => '3'}/
+            .form-group
+              %input#inputPassword.form-control{:name => "password", :placeholder => "Password", :type => "password", :min => '8', :max => '20'}/
+            .form-group
+              %input#confirminputPassword.form-control{:name => "confirmpassword", :placeholder => "Confirm Password", :type => "password", :min => '8', :max => '20'}/
+            %br/
+            %button.btn.btn-primary{:type => "submit", :value => "Submit"} SignUp
+        - if flash[:notice] and flash[:success] == 0
+          %br
+          .alert.alert-danger{:role => "alert"}
+            =flash[:notice]
+        - if flash[:notice] and flash[:success] == 1
+          %br
+          .alert.alert-success{:role => "alert"}
+            =flash[:notice]
+  / /.row
+/ /.container
+/ Footer
+%br
+%footer.py-5.bg-dark
+  .container
+    %p.m-0.text-center.text-white Copyright © SELT Project 2018
+  / /.container

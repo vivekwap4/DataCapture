@@ -1,0 +1,86 @@
+/ Page Content
+.container.shadow-none.p-3.mb-5.bg-light.rounded{:style => "margin-top: 25px"}
+  %div.pageheight
+    .row
+      %br/
+      %br/
+      %br/
+      / Blog Entries Column
+      .col-md-12
+        - if flash[:notice]
+          %br/
+          %br/
+          %br/
+          .alert.alert-success{:role => "alert"}
+            =flash[:notice]
+        .row
+          .col-md-2
+            #sidebar-wrapper
+              %ul.nav.flex-column{:style => "margin-top: 50px"}
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/researcher_landing_page"} My Projects
+                %li.nav-item
+                  %a.nav-link{:href => "/profile"} Profile
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/grantaccess"} Grant Access
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/approvedata"} Approve Data
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/archive"} Archive
+          .col-md-10
+            %br/
+            %h4.my-4
+              - if @project
+                #{@project.project_name} Home Page
+              %br/
+              %h3.my-4
+              %table#tasks
+                %tbody
+                  %tr
+                    %th Tasks
+                  %tr
+                    %td= link_to  'Add Form', researcher_generateform_path
+              %br/
+              %table#forms
+                %thead
+                  %tr
+                    %th{:colspan => 6} Forms
+                %thead
+                  %tr
+                    %th Form Name
+                    %th Form ID
+                    %th Number of Records
+                    %th Recent Activity
+                    %th Export
+                %tbody
+                  - @forms.each do |form|
+                    %tr
+                      %td
+                        %a{:href => "/forms/#{form.id}"} #{form.form_name}
+                      -form_string = form.form_name
+                      -form_string.gsub!(/\s/, '_')
+                      -form_string = form_string + ".txt"
+                      %td= form.id
+                      %td= Result.all.where(forms_id: form.id).count
+                      %td= form.updated_at
+                      %td
+                        %a{:href => "/forms/export/#{form.id}"} #{form_string}
+              %br/
+              %h4.my-4
+                Form Creation Timeline
+              = line_chart Form.all.where(projects_id: params[:id]).group_by_day(:created_at).count
+              %br/
+              %h4.my-4
+                Records Added
+              - @forms.each do |form|
+                %h4.my-4
+                  #{form.form_name}
+                = column_chart Result.all.where(forms_id: form.id).group_by_day(:created_at, format: "%a").count
+
+  / /.row
+/ /.container
+/ Footer
+%footer.py-5.bg-dark
+  .container
+    %p.m-0.text-center.text-white Copyright © Data Capture 2018
+  / /.container

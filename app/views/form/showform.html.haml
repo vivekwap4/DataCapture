@@ -1,0 +1,105 @@
+/ Page Content
+= javascript_include_tag 'showform'
+.container.shadow-none.p-3.mb-5.bg-light.rounded{:style => "margin-top: 25px"}
+  %div.pageheight
+    .row
+      %br/
+      %br/
+      %br/
+      / Blog Entries Column
+      .col-md-12
+        - if flash[:notice]
+          %br/
+          %br/
+          %br/
+          .alert.alert-success{:role => "alert"}
+            =flash[:notice]
+        .row
+          .col-md-2
+            #sidebar-wrapper
+              %ul.nav.flex-column{:style => "margin-top: 50px"}
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/researcher_landing_page"} My Projects
+                %li.nav-item
+                  %a.nav-link{:href => "/profile"} Profile
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/grantaccess"} Grant Access
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/approvedata"} Approve Data
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/archive"} Archive
+          .col-md-10
+            %br/
+            %h4.my-4
+              - if @form
+                #{@form.form_name} Data
+              %br/
+              %h3.my-4
+              %table.forms
+                %thead
+                  %tr
+                    %th{:colspan => 2} Form Details
+                %tbody
+                  %tr
+                    %td
+                      %b ID
+                    %td#formID #{@form.id}
+                  %tr
+                    %td
+                      %b Name
+                    %td #{@form.form_name}
+                  %tr
+                    %td
+                      %b Project Name
+                    %td Belongs to #{@project.project_name}
+                  %tr
+                    %td
+                      %b Updated at
+                    %td #{@form.updated_at}
+                  %tr
+                    %td
+                      %b Created At
+                    %td #{@form.created_at}
+              &nbsp
+              %button.btn.btn-danger{:type => "button", :onclick => 'archiveForm("Click OK to archive this Form!!!", '+@form.id.to_s+')'} Archive Form
+              %br/
+              %br/
+              = link_to "View/Download Data Charts", form_categorical_charts_path(@form)
+              %br/
+              #searchform
+                %b
+                  Filter By:
+                %select{:name => "searchattr", :id => 'searchattribute'}
+                  - @attribues.each do |attr|
+                    %option{:value => attr.column_name} #{attr.column_name}
+                %b
+                  Search
+                %input{:type => "text", :id => 'searchkeyword'}/
+                %button{:onclick => "window.location.reload()", :value => "Refresh Page"} Reset Search
+              %table#forms.table-hover
+                %thead
+                  %tr
+                    %th{:colspan => @length} Forms Data
+                %thead
+                  %tr#formscolumn
+                    - @attribues.each do |attr|
+                      %th= attr.column_name
+                %tbody#formsbody
+                  - @results.each do |result|
+                    %tr
+                      - @attribues.each do |attr|
+                        %td= result.jsondata[attr.column_name]
+              %nav{"aria-label" => "Page navigation example"}
+                %ul.pagination
+                  %li.page-item
+                    %a.page-link{:href => "/forms/#{@form.id}/previous", :disabled => @previous} Previous
+                  %li.page-item
+                    %a.page-link{:href => "/forms/#{@form.id}/next", :disabled => @next} Next
+
+  / /.row
+/ /.container
+/ Footer
+%footer.py-5.bg-dark
+  .container
+    %p.m-0.text-center.text-white Copyright © Data Capture 2018
+  / /.container

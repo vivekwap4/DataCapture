@@ -1,0 +1,27 @@
+/ Page Content
+.container
+  %div.pageheight
+    .row
+      %br/
+      %br/
+      %br/
+      / Blog Entries Column
+      .col-md-12
+        %br/
+        %br/
+        %br/
+        - if flash[:notice]
+          .alert.alert-success{:role => "alert"}
+            =flash[:notice]
+        .shadow-none.p-3.mb-5.bg-light.rounded{:style => "margin-top: 25px"}
+          %br/
+          .shadow-none.p-3.mb-5.bg-light.rounded{:style => "margin-top: 25px"}
+            %h1.my-4
+              =image_tag 'DataCaptureTransparent.png'
+  / /.row
+/ /.container
+/ Footer
+%footer.py-5.bg-dark
+  .container
+    %p.m-0.text-center.text-white Copyright © Data Capture 2018
+  / /.container

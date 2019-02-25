@@ -1,0 +1,37 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+    %title Data Capture
+    / Custom styles for this template
+    = yield
+    = stylesheet_link_tag 'application', 'media' => 'all'
+    -#%script{:src => "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js", :type => "text/javascript"}
+    %script{:src => "https://code.jquery.com/jquery-1.11.1.min.js"}
+    %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js", :type => "text/javascript"}
+    %link{:crossorigin => "anonymous", :href => "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css", :integrity => "sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm", :rel => "stylesheet"}/
+    %script{:crossorigin => "anonymous", :integrity => "sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl", :src => "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"}
+    = javascript_include_tag 'application'
+    = yield :charts_js
+  %body
+    / Navigation
+    %nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
+      .container
+        %a.navbar-brand{:href => "/"} Data Capture
+        %button.navbar-toggler{"aria-controls" => "navbarResponsive", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarResponsive", "data-toggle" => "collapse", :type => "button"}
+          %span.navbar-toggler-icon
+        #navbarResponsive.collapse.navbar-collapse.text-center
+          %ul.navbar-nav.ml-auto
+            %li.nav-item.active
+              %a.nav-link{:href => "/"} Home
+            %li.nav-item
+              %a.nav-link{:href => "/tutorial/tutorialpage", :id => 'tutorials_link'} Tutorial
+            %li.nav-item
+              - if session[:session_token]
+                %a.nav-link{:href => "/logout", :id => 'logout_link'} Logout
+              - else
+                %a.nav-link{:href => "/login", :id => 'login_link'} Login

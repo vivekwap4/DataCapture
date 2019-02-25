@@ -1,0 +1,85 @@
+/ Page Content
+.container.shadow-none.p-3.mb-5.bg-light.rounded{:style => "margin-top: 25px"}
+  %div.pageheight
+    .row
+      %br/
+      %br/
+      %br/
+      / Blog Entries Column
+      .col-md-12
+        .row
+          .col-md-2
+            #sidebar-wrapper
+              %ul.nav.flex-column{:style => "margin-top: 50px"}
+                %li.nav-item
+                  %a.nav-link{:href => "/dataentry/dataentry_landing_page"} My Projects
+                %li.nav-item
+                  %a.nav-link{:href => "/profile"} Profile
+                %li.nav-item
+                  %a.nav-link{:href => "/dataentry/update"} Update Request
+          .col-md-10
+            %br
+            %h4.my-4
+              Profile
+            / Login Page
+            %ul.nav.nav-tabs{:role => "tablist"}
+              %li.nav-item
+                %a.nav-link.active{"data-toggle" => "tab", :href => "#home"} Profile Picture
+              %li.nav-item
+                %a.nav-link{"data-toggle" => "tab", :href => "#menu1"} Personal Information
+            / Tab panes
+            .tab-content
+              #home.container.tab-pane.active
+                .col-md-8
+                  %img.avatar.img-circle.img-thumbnail{:alt => "avatar", :src => @authentication.avatar.url(:medium)}/
+                  .form-group
+                    = form_for @authentication, url: '/profile', html: { multipart: true } do |form|
+                      = form.file_field :avatar
+                      %br/
+                      %br/
+                      %br/
+                      %label{:for => "exampleInputEmail1"} Email address
+                      %input#exampleInputEmail1.form-control{"aria-describedby" => "emailHelp", :type => "email", :value => @authentication.email, :readonly => "readonly"}/
+                      %small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
+                      %button.btn.btn-primary{:type => "submit"} Update Profile
+              #menu1.container.tab-pane.fade
+                %br/
+                .col-md-6
+                  %form#postformdataentry{:action => "/dataentryupdate", :method => "POST"}
+                    = tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token)
+                    .form-group
+                      %b
+                        %label{:for => "exampleInputEmail1"} Email Address
+                      %input#inputEmail.form-control{:name => "email", :placeholder => "Email", :type => "email", :readonly => "readonly", :value => @user[:email]}/
+                    .form-group
+                      %b
+                        %label{:for => "exampleInputFirstName1"} First Name
+                      %input#inputFirstName.form-control{:name => "firstname", :placeholder => "First Name", :type => "text", :value => @user[:firstname]}/
+                    .form-group
+                      %b
+                        %label{:for => "exampleInputLastName1"} Last Name
+                      %input#inputLastName.form-control{:name => "lastname", :placeholder => "Last Name", :type => "text", :value => @user[:lastname]}/
+                    .form-group
+                      %b
+                        %label{:for => "exampleInputProfile1"} Profile
+                      %input#inputProfile.form-control{:name => "profile", :placeholder => "Profile", :type => "text", :value => @user[:profile]}/
+                    .form-group
+                      %b
+                        %label{:for => "exampleInputInstitution1"} Institution
+                      %input#inputInstitution.form-control{:name => "institution", :placeholder => "Institution", :type => "text", :value => @user[:institution]}/
+                    %br/
+                    %button.btn.btn-primary{:type => "submit", :value => "Submit"} Update
+
+          - if flash[:notice] and flash[:success] == 0
+            .alert.alert-danger{:role => "alert"}
+              =flash[:notice]
+          - if flash[:notice] and flash[:success] == 1
+            .alert.alert-success{:role => "alert"}
+              =flash[:notice]
+  / /.row
+/ /.container
+/ Footer
+%footer.py-5.bg-dark
+  .container
+    %p.m-0.text-center.text-white Copyright © Data Capture 2018
+  / /.container

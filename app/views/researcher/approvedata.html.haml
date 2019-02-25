@@ -1,0 +1,64 @@
+/ Page Content
+= javascript_include_tag 'approvedata'
+.container.shadow-none.p-3.mb-5.bg-light.rounded{:style => "margin-top: 25px"}
+  %div.pageheight
+    .row
+      %br/
+      %br/
+      %br/
+      / Blog Entries Column
+      .col-md-12
+        - if flash[:notice]
+          %br/
+          %br/
+          %br/
+          .alert.alert-success{:role => "alert"}
+            =flash[:notice]
+        .row
+          .col-md-2
+            #sidebar-wrapper
+              %ul.nav.flex-column{:style => "margin-top: 50px"}
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/researcher_landing_page"} My Projects
+                %li.nav-item
+                  %a.nav-link{:href => "/profile"} Profile
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/grantaccess"} Grant Access
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/approvedata"} Approve Data
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/archive"} Archive
+          .col-md-10
+            %br/
+            %h4.my-4
+              Select Project
+            #approvedataform
+              %div#addnewform
+                %select#approvedataprojectselector{:name => "project"}
+                  %option{:value => nil } Select Project
+                  - @project.each do |proj|
+                    %option{:value => proj.id} #{proj.project_name}
+  / /.row
+/ /.container
+/ Footer
+%footer.py-5.bg-dark
+  .container
+    %p.m-0.text-center.text-white Copyright © Data Capture 2018
+  / /.container
+
+
+#dataApprovalModal.modal
+  .modal-dialog
+    .modal-content
+      / Modal Header
+      .modal-header
+        %h4.modal-title Data
+        %button.close{"data-dismiss" => "modal", :type => "button"} ×
+      / Modal body
+      .modal-body
+        %h4.my-4{:style => "margin-top: 25px"}
+          Row Data is
+        #viewRowData
+      / Modal footer
+      .modal-footer
+        %button.btn.btn-danger{"data-dismiss" => "modal", :type => "button"} Close

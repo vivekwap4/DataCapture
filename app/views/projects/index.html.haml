@@ -1,0 +1,46 @@
+/ Page Content
+.container.pageheight
+  .row
+    %br/
+    %br/
+    %br/
+    / Blog Entries Column
+    .col-md-12
+      - if flash[:notice]
+        %br/
+        %br/
+        %br/
+        .alert.alert-success{:role => "alert"}
+          =flash[:notice]
+      .shadow-none.p-3.mb-5.bg-light.rounded{:style => "margin-top: 25px"}
+        .row
+          .col-md-2
+            #sidebar-wrapper
+              %ul.nav.flex-column{:style => "margin-top: 50px"}
+                %li.nav-item
+                  %a.nav-link{:href => "/researcher/researcher_landing_page"} My Projects
+                %li.nav-item
+                  %a.nav-link{:href => "/profile"} Profile
+                %li.nav-item
+                  %a.nav-link{:href => "#"} Link 1
+                %li.nav-item
+                  %a.nav-link{:href => "#"} Link 2
+                %li.nav-item
+                  %a.nav-link{:href => "#"} Link 3
+                %li.nav-item
+                  %a.nav-link{:href => "#"} Link 4
+          .col-md-10
+            %br/
+            %h4.my-4
+              Project Home Page
+              %br/
+              %h3.my-4
+              = link_to '+ Create a New Form', new_researcher_path
+              %br/
+  / /.row
+/ /.container
+/ Footer
+%footer.py-5.bg-dark
+  .container
+    %p.m-0.text-center.text-white Copyright © Data Capture 2018
+  / /.container

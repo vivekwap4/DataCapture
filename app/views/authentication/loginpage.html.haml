@@ -1,0 +1,77 @@
+/ Page Content
+.container
+  %div.pageheight
+    .row
+      %br/
+      %br/
+      %br/
+      / Blog Entries Column
+      .col-md-12
+        .shadow-none.p-3.mb-5.bg-light.rounded{:style => "margin-top: 25px"}
+          %br/
+          %h1.my-4
+            Login
+          %br/
+          / Login Page
+          %ul.nav.nav-tabs{:role => "tablist"}
+            %li.nav-item
+              %a.nav-link.active{"data-toggle" => "tab", :href => "#home"} Researcher Login
+            %li.nav-item
+              %a.nav-link{"data-toggle" => "tab", :href => "#menu1", :id => 'data_entry_login_link'} Data Entry Login
+          / Tab panes
+          .tab-content
+            #home.container.tab-pane.active
+              %br/
+              .row
+                .col-md-6
+                  %br
+                  %form#postformresearcher{:action => "/login", :method => "POST"}
+                    = tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token)
+                    .form-group
+                      %input#inputEmailResearcher.form-control{:name => "email", :placeholder => "Email", :type => "email", :id => 'researcher_email'}/
+                    .form-group
+                      %input#inputPasswordResearcher.form-control{:name => "password", :placeholder => "Password", :type => "password", :id => 'researcher_password'}/
+                    .form-group
+                      %input#inputresearcher{:name => "logintype", :type => "hidden", :value => "researcher"}/
+                    .forgot
+                      %a{:href => "/forgotpassword"} Forgot password?
+                    %br/
+                    %button.btn.btn-primary{:type => "submit", :value => "Submit", :id => 'researcher_submit'} Login
+                  %a{:href => "/researcher/signup", :id => 'create_account_link'} Create Account
+                .col-md-6
+                  =image_tag 'DataCaptureTransparentSmall.png', :width => '80%', :height => '90%'
+            #menu1.container.tab-pane.fade
+              %br/
+              .row
+                .col-md-6
+                  %br
+                  %form#postformdataentry{:action => "/login", :method => "POST"}
+                    = tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token)
+                    .form-group
+                      %input#inputEmailDataEntry.form-control{:name => "email", :placeholder => "Email", :type => "email", :id => 'data_entry_email'}/
+                    .form-group
+                      %input#inputPasswordDataEntry.form-control{:name => "password", :placeholder => "Password", :type => "password", :id => 'data_entry_password'}/
+                    .form-group
+                      %input#inputdatatype{:name => "logintype", :type => "hidden", :value => "dataentry"}/
+                    .forgot
+                      %a{:href => "/forgotpassword"} Forgot password?
+                    %br/
+                    %button.btn.btn-primary{:type => "submit", :value => "Submit", :id => 'data_entry_submit'} Login
+                  %a{:href => "/dataentry/signup"} Create Account
+                .col-md-6
+                  =image_tag 'DataCaptureTransparentSmall.png', :width => '80%', :height => '90%'
+
+        - if flash[:notice] and flash[:success] == 0
+          .alert.alert-danger{:role => "alert"}
+            =flash[:notice]
+        - if flash[:notice] and flash[:success] == 1
+          .alert.alert-success{:role => "alert"}
+            =flash[:notice]
+
+  / /.row
+/ /.container
+/ Footer
+%footer.py-5.bg-dark
+  .container
+    %p.m-0.text-center.text-white Copyright © Data Capture 2018
+  / /.container
