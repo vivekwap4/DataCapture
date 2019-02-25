@@ -1,4 +1,4 @@
 # Data Capture
-This repository was private and a group project. Pushed now as a public repository.
+This repository was private and a group project, now pushed as a public repository.
 MVC Architecture using Ruby on Rails.
 
